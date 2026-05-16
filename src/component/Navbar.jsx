@@ -4,8 +4,15 @@ import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { authClient } from "../lib/auth-client";
 
 const Navbar = () => {
+  const { data: session } = authClient.useSession()
+  
+  const handlesignout = async ()=>{
+    await authClient.signOut();
+  }
+
   return (
     <header className="fixed top-4 left-0 w-full z-50 px-4">
       <nav
@@ -53,7 +60,13 @@ const Navbar = () => {
         </ul>
 
         {/* BUTTONS */}
-        <div className="flex items-center gap-2 relative z-10">
+        {session?.user?<div className="flex justify-center gap-2 items-center">
+         <h1 className="font-bold text-white">Welcome {session?.user?.name}</h1>
+         {session?.user?.image?<img className="h-8 w-8 rounded-full" src={session?.user?.image} alt="image" />:<div></div>}
+          <Button onClick={()=> handlesignout()} className="rounded-full px-4 text-sm bg-white/10 text-white border border-white/10 hover:bg-white/20">
+              Login out
+            </Button>
+        </div>: <div className="flex items-center gap-2 relative z-10">
           <Link href="/login">
             <Button className="rounded-full px-4 text-sm bg-white/10 text-white border border-white/10 hover:bg-white/20">
               Login
@@ -65,7 +78,8 @@ const Navbar = () => {
               Sign Up
             </Button>
           </Link>
-        </div>
+        </div>}
+       
       </nav>
     </header>
   );

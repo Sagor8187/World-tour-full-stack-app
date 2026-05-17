@@ -8,7 +8,7 @@ export default async function Detailspage({ params }) {
   const { id } = await params;
 
   const data = await detailsdata(id);
-  console.log(data);
+ 
 
   return (
     <div className="mt-15">
@@ -80,3 +80,6 @@ export default async function Detailspage({ params }) {
     </div>
   );
 }
+
+
+

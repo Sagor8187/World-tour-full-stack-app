@@ -1,6 +1,7 @@
 "use client";
 
 import {AlertDialog, Button} from "@heroui/react";
+import { authClient } from "../lib/auth-client";
 
 export function Deletemodal({data}) {
      const {
@@ -11,8 +12,12 @@ export function Deletemodal({data}) {
   } = data;
 
    const deletedata = async (id) => {
-      const res = await fetch(`http://localhost:5000/destination/${id}`, {
-        method: "DELETE"
+    const {data:tokendata}=await authClient.token()
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/destination/${id}`, {
+        method: "DELETE",
+        headers: {
+      authorization: `Bearer ${tokendata?.token}`,
+    },
       });
       const output = await res.json();
       console.log(output);

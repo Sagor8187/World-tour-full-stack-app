@@ -5,7 +5,7 @@ import { jwt } from "better-auth/plugins";
 
 const client = new MongoClient(process.env.MONGO_URI);
 const db = client.db("tour");
-await client.connect();
+
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {

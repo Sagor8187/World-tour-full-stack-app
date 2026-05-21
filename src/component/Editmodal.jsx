@@ -13,6 +13,7 @@ import {
   TextArea,
 } from "@heroui/react";
 import { FaEdit } from "react-icons/fa";
+import { authClient } from "../lib/auth-client";
 export function Editmodal({ data }) {
   const {
     _id,
@@ -32,10 +33,12 @@ export function Editmodal({ data }) {
     const data = Object.fromEntries(formData.entries());
 
     const senddata = async (id) => {
-      const res = await fetch(`http://localhost:5000/destination/${id}`, {
+      const {data:tokendata}=await authClient.token()
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/destination/${id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
+          authorization:`bearer ${tokendata?.token}`
         },
         body: JSON.stringify(data),
       });

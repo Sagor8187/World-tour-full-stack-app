@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@heroui/react";
-import Image from "next/image";
+
 import Link from "next/link";
 import React from "react";
 import { authClient } from "../lib/auth-client";
@@ -27,15 +27,7 @@ const Navbar = () => {
 
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-3 relative z-10">
-          <Image
-            src="/assets/Wanderlast.png"
-            height={150}
-            width={150}
-            alt="logo"
-            className="rounded-full  "
-          />
-
-          
+          <h1 className="text-2xl font-bold text-white bg-cyan-500 p-1 px-3 rounded-full">World <span>Tour</span></h1>
         </Link>
 
         {/* MENU */}

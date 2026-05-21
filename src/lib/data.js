@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { auth } from "./auth";
 
  export const mydata = async ()=>{
- const res = await fetch("http://localhost:5000/destination",{
+ const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/destination`,{
    headers:{
       authorization:`login`
    }
@@ -17,7 +17,7 @@ import { auth } from "./auth";
       headers:await headers()
    })
  
- const res = await fetch(`http://localhost:5000/destination/${id}`,{
+ const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/destination/${id}`,{
    headers:{
       authorization:`bearer ${token}`
    }

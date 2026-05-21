@@ -11,9 +11,28 @@ export default async function Page() {
     headers: await headers() // you need to pass the headers object.
 })
 
-  const res = await fetch(
-    `http://localhost:5000/booking/${session?.user?.id}`
-  );
+ const {token} = await auth.api.getToken({
+      headers:await headers()
+   })
+   console.log(token)
+
+   const res = await fetch(
+  `${process.env.NEXT_PUBLIC_URL}/booking/${session?.user?.id}`,
+  {
+    headers: {
+      authorization: `bearer ${token}`,
+    },
+  }
+);
+
+  // const res = await fetch(
+  //   `http://localhost:5000/booking/${session?.user?.id}`,{
+  //     ,{
+  //     headers:{
+  //        authorization:`bearer ${token}`
+  //     }
+  //   }
+  // );
 
   const data = await res.json();
 

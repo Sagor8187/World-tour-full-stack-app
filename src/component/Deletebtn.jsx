@@ -1,10 +1,17 @@
 "use client"
 import {  FaRegTrashCan } from "react-icons/fa6";
+import { authClient } from "../lib/auth-client";
 
 export default function Deletebtn({id}) {
     const deletedata = async(id)=>{
-        const res = await fetch(`http://localhost:5000/booking/${id}`,{
-            method:"DELETE"
+      const {data:tokendata}=await authClient.token()
+      console.log(tokendata)
+      
+        const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/booking/${id}`,{
+            method:"DELETE",
+            headers:{
+              authorization:`bearer ${tokendata?.token}`
+            }
         })
         const data = await res.json()
         console.log(data)

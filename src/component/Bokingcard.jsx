@@ -3,8 +3,7 @@ import { FieldError, InfoIcon, Input, Label, TextField } from "@heroui/react";
 import { FaArrowRight, FaCheck } from "react-icons/fa6";
 import { authClient } from "../lib/auth-client";
 import { useState } from "react";
-import { headers } from "next/headers";
-import { auth } from "../lib/auth";
+
 
 export default function Bokingcard({ data }) {
      const { data: session } = authClient.useSession()
@@ -30,15 +29,13 @@ export default function Bokingcard({ data }) {
 
 
         }
-       const {token} = await auth.api.getToken({
-            headers:await headers()
-         })
+       const {data:tokendata}= await authClient.token()
         
-        const res = await fetch("http://localhost:5000/booking",{
+        const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/booking`,{
             method:"POST",
             headers:{
                 "content-type":"application/json",
-                authorization:`bearer ${token}`
+                authorization:`bearer ${tokendata?.token}`
                  
             },
             body:JSON.stringify(bookdata)

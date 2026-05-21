@@ -16,7 +16,7 @@ export default function Signuppage() {
     name:info.name , // required
     email: info.email, // required
     password: info.password, // required
-    image: info.url,
+    image: info.image,
     callbackURL: "http://localhost:3000"
     
 });

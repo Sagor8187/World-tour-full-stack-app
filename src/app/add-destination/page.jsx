@@ -1,5 +1,6 @@
 "use client"
 
+import { authClient } from "../../lib/auth-client";
 import { FieldError, Input, Label, ListBox, TextField ,Select, TextArea, Button} from "@heroui/react"
 
 export default function Adddestinatiopage() {
@@ -11,10 +12,12 @@ export default function Adddestinatiopage() {
         console.log(data)
 
         const senddata = async ()=>{
-          const res =await  fetch("http://localhost:5000/addestination",{
+          const {data:tokendata}=await authClient.token()
+          const res =await  fetch(`${process.env.NEXT_PUBLIC_URL}/addestination`,{
                 method:"POST",
                 headers:{
-                    "content-type":"application/json"
+                    "content-type":"application/json",
+                    authorization:`bearer ${tokendata?.token}`
                 },
                 body:JSON.stringify(data)
             })
